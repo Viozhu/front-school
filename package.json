@@ -38,8 +38,8 @@
   },
   "lint-staged": {
     "*.{,ts,tsx}": [
-      "eslint . --fix",
-      "prettier --write"
+      "pnpm eslint . --fix",
+      "pnpm prettier --write"
     ]
   }
 }
