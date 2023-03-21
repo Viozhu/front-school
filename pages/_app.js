@@ -1,3 +1,5 @@
+import { createTheme, ThemeProvider } from '@mui/material';
+import { orange } from '@mui/material/colors';
 import Head from 'next/head';
 import { useState } from 'react';
 import Header from '../src/Components/stylesComponents/Header';
@@ -7,6 +9,17 @@ import '../styles/global.css';
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
 
+  const theme = createTheme({
+    status: {
+      danger: orange[500],
+    },
+    palette: {
+      primary: {
+        main: orange[500],
+      },
+    },
+  });
+
   const handlerUser = {
     setUser: (user) => {
       setUser(user);
@@ -14,7 +27,7 @@ function MyApp({ Component, pageProps }) {
     user,
   };
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Head>
         <title>Academy IT </title>
         <link rel="icon" href="/favicon.ico" />
@@ -23,7 +36,7 @@ function MyApp({ Component, pageProps }) {
         <Header />
         <Component {...pageProps} />
       </CustomContext.Provider>
-    </>
+    </ThemeProvider>
   );
 }
 
