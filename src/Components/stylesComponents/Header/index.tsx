@@ -1,3 +1,4 @@
+import { useState, MouseEvent } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
@@ -13,23 +14,18 @@ import {
   Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import * as React from 'react';
 
 import SchoolIcon from '@mui/icons-material/School';
 import { pages, settings } from './paths';
 
 function ResponsiveAppBar(): JSX.Element {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null,
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null,
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const router = useRouter();
 
   const handleOpen = (
-    event: React.MouseEvent<HTMLElement>,
+    event: MouseEvent<HTMLButtonElement, MouseEvent>,
     origin: string,
   ): void => {
     if (origin === 'user') return setAnchorElUser(event.currentTarget);

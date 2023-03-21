@@ -1,17 +1,16 @@
 {
-  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "extends": ["next/core-web-vitals", "airbnb", "plugin:prettier/recommended"],
   "rules": {
     "quotes": [2, "single", { "avoidEscape": true }],
-    "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
-    "import/no-unresolved": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
+    "consistent-return": "off",
     "react/jsx-filename-extension": [
-      1,
+      2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ]
+    ],
+    "no-undef": "off"
   },
-  "plugins": ["prettier"],
-  "ignorePatterns": ["src/apollo/generated/graphql.ts, ", "src/Redux/store.ts"]
+  "ignorePatterns": ["next.config.js", "*/_app.js"]
 }

@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 
-type Props = {};
-
-function User({}: Props): JSX.Element {
+function User(): JSX.Element {
   const router = useRouter();
-  const { id } = router.query;
+  const { id }: ParsedUrlQuery = router.query;
 
   return <div>{id}</div>;
 }

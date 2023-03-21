@@ -1,9 +1,9 @@
 import React from 'react';
 
-type Props = {};
+// interface Props {}
 
-const Students = (props: Props): JSX.Element => {
+function Students(): JSX.Element {
   return <div>Students</div>;
-};
+}
 
 export default Students;
