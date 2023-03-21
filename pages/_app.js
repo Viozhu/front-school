@@ -1,15 +1,28 @@
 import Head from 'next/head';
+import { useState } from 'react';
+import Header from '../src/Components/stylesComponents/Header';
+import CustomContext from '../src/Context/index';
 import '../styles/global.css';
-import Header from '../stylesComponents/Header';
+
 function MyApp({ Component, pageProps }) {
+  const [user, setUser] = useState(null);
+
+  const handlerUser = {
+    setUser: (user) => {
+      setUser(user);
+    },
+    user,
+  };
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Academy IT </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <Component {...pageProps} />
+      <CustomContext.Provider value={handlerUser}>
+        <Header />
+        <Component {...pageProps} />
+      </CustomContext.Provider>
     </>
   );
 }
