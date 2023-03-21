@@ -1,10 +1,8 @@
-import React from 'react';
 import { useRouter } from 'next/router';
-import ActionAreaCard from '../../Components/Home';
 
 type Props = {};
 
-function User({}: Props) {
+function User({}: Props): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
 
