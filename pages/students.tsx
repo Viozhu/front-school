@@ -1,9 +1,7 @@
-import React from 'react';
-
-// interface Props {}
+import StudentsComponent from '@/Components/Students';
 
 function Students(): JSX.Element {
-  return <div>Students</div>;
+  return <StudentsComponent />;
 }
 
 export default Students;
