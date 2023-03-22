@@ -1,8 +1,11 @@
 import { createContext, useContext } from 'react';
 
-const CustomContext = createContext();
+const CustomContext = createContext({
+  user: null,
+  setUser: null,
+});
 
-export function useCustomContext(): void {
+export function useCustomContext() {
   return useContext(CustomContext);
 }
 

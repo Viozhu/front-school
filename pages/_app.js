@@ -2,8 +2,9 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import Head from 'next/head';
 import { useState } from 'react';
-import Header from '../src/Components/stylesComponents/Header';
+import { Header } from '../src/stylesComponents';
 import CustomContext from '../src/Context/index';
+import { ITStudent } from '../src/interface';
 import '../styles/global.css';
 
 function MyApp({ Component, pageProps }) {
