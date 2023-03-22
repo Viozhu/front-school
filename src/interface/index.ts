@@ -68,5 +68,5 @@ export interface IRoom {
   day: DAY;
   time: string;
   capacity: number;
-  studentId: IStudent[] | null;
+  students: IStudent[] | null;
 }
