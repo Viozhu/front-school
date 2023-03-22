@@ -1,8 +1,11 @@
 import { Avatar, IconButton } from '@mui/material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import EditIcon from '@mui/icons-material/Edit';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { GridColDef } from '@mui/x-data-grid';
+import { handleDelete, handleEdit } from '@/utils/handleUsers';
 
-export const generateColumns = (redirect): GridColDef[] => {
+export const generateColumns = (rol, redirect): GridColDef[] => {
   const columns = [
     {
       field: 'image',
@@ -37,6 +40,7 @@ export const generateColumns = (redirect): GridColDef[] => {
       renderCell: (params) => {
         return (
           <div>
+            {' '}
             <IconButton
               color="info"
               aria-label="upload picture"
@@ -45,6 +49,26 @@ export const generateColumns = (redirect): GridColDef[] => {
             >
               <AccountBoxIcon />
             </IconButton>
+            {rol === 'ADMIN' && (
+              <>
+                <IconButton
+                  color="secondary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={() => handleEdit(params.row.id)}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="error"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={() => handleDelete(params.row.id)}
+                >
+                  <PersonRemoveIcon />
+                </IconButton>
+              </>
+            )}
           </div>
         );
       },

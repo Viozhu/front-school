@@ -7,7 +7,7 @@
     "import/prefer-default-export": "off",
     "consistent-return": "off",
     "no-extra-boolean-cast": "off",
-    "jsx-props-no-spreading": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }

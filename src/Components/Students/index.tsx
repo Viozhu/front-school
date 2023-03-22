@@ -23,14 +23,6 @@ function StudentsComponent() {
     router.push(`/user/${id}`);
   };
 
-  const handleDelete = async (id) => {
-    console.log(id);
-  };
-
-  const handleEdit = async (id) => {
-    console.log(id);
-  };
-
   return (
     <Paper className="m-6 p-4">
       <Typography
@@ -44,7 +36,7 @@ function StudentsComponent() {
       <Table
         rows={rows}
         height="70vh"
-        columns={generateColumns(user?.rol, redirect, handleEdit, handleDelete)}
+        columns={generateColumns(user?.rol, redirect)}
       />
     </Paper>
   );

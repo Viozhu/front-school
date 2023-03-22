@@ -1,4 +1,5 @@
 import { IStudent } from '@/interface';
+import { handleDelete, handleEdit } from '@/utils/handleUsers';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -22,12 +23,7 @@ export const generateRows = (students: IStudent[]): GridRowsProp => {
     });
 };
 
-export const generateColumns = (
-  rol,
-  redirect,
-  editUser,
-  deleteUser,
-): GridColDef[] => {
+export const generateColumns = (rol, redirect): GridColDef[] => {
   const columns = [
     {
       field: 'image',
@@ -80,7 +76,7 @@ export const generateColumns = (
                   color="secondary"
                   aria-label="upload picture"
                   component="span"
-                  onClick={() => editUser(params.row.id)}
+                  onClick={() => handleEdit(params.row.id)}
                 >
                   <EditIcon />
                 </IconButton>
@@ -88,7 +84,7 @@ export const generateColumns = (
                   color="error"
                   aria-label="upload picture"
                   component="span"
-                  onClick={() => deleteUser(params.row.id)}
+                  onClick={() => handleDelete(params.row.id)}
                 >
                   <PersonRemoveIcon />
                 </IconButton>

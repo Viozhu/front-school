@@ -1,3 +1,4 @@
+import { useCustomContext } from '@/Context';
 import { IRoom } from '@/interface';
 import { Table } from '@/stylesComponents';
 import useAxios from '@/utils/axios';
@@ -19,6 +20,7 @@ type RoomProps = {
 function RoomComponent({ id }: RoomProps): JSX.Element {
   const { data } = useAxios(`/room/getRoom/${id}`);
   const room: IRoom = data?.data;
+  const { user } = useCustomContext();
 
   const router = useRouter();
 
@@ -72,7 +74,11 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
         >
           Students
         </Typography>
-        <Table height="60vh" rows={rows} columns={generateColumns(redirect)} />
+        <Table
+          height="60vh"
+          rows={rows}
+          columns={generateColumns(user?.rol, redirect)}
+        />
       </Paper>
     </div>
   );

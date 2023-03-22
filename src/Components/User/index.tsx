@@ -1,7 +1,9 @@
 import useAxios from '@/utils/axios';
 
+import { useCustomContext } from '@/Context';
 import { IStudent } from '@/interface';
 import { Table } from '@/stylesComponents';
+import { handleDelete, handleEdit } from '@/utils/handleUsers';
 import {
   Chip,
   Divider,
@@ -16,10 +18,18 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LanguageIcon from '@mui/icons-material/Language';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { Card, CardContent, CardHeader, Paper } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Paper,
+} from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { fistLetterMayus, generateColumns, generateRowsRooms } from './helpers';
+import EditModal from '../Modals/EditModal';
 
 type UserProps = {
   id: string | string[];
@@ -27,12 +37,14 @@ type UserProps = {
 
 function UserComponent({ id }: UserProps): JSX.Element {
   const { data } = useAxios(`/user/getUser/${id}`);
+  const { user: userLogged } = useCustomContext();
   const user: IStudent = data?.data;
   const router = useRouter();
 
   const redirect = (idRoom: string) => {
     router.push(`/room/${idRoom}`);
   };
+
   return (
     <div className="flex justify-center items-center h-full">
       <div className="flex my-2">
@@ -57,6 +69,26 @@ function UserComponent({ id }: UserProps): JSX.Element {
               <Typography variant="body1" gutterBottom align="center">
                 {user?.email}
               </Typography>
+              {userLogged?.rol === 'ADMIN' && (
+                <Box className="flex justify-center mt-4 space-x-1">
+                  <Button
+                    size="small"
+                    color="secondary"
+                    variant="outlined"
+                    onClick={() => handleEdit(user.id)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    size="small"
+                    color="error"
+                    variant="outlined"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              )}
             </CardContent>
           </Card>
           <Card className="m-2">
@@ -159,6 +191,8 @@ function UserComponent({ id }: UserProps): JSX.Element {
           </Paper>
         </div>
       </div>
+
+      <EditModal open onClose={() => {}} user={user} />
     </div>
   );
 }
