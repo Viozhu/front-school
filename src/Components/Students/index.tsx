@@ -1,6 +1,8 @@
 import { useCustomContext } from '@/Context';
+import useAxios from '@/utils/axios';
+import { Paper, Typography } from '@mui/material';
 import { GridRowsProp } from '@mui/x-data-grid';
-import axios from 'axios';
+
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Table from 'src/stylesComponents/Table';
@@ -11,18 +13,11 @@ function StudentsComponent() {
   const { user } = useCustomContext();
   const router = useRouter();
 
-  const requestData = async () => {
-    try {
-      const { data } = await axios('http://localhost:4001/user/getUsers');
-      setRows(generateRows(data.data));
-    } catch (error) {
-      setRows([]);
-    }
-  };
+  const { data } = useAxios('/user/getUsers');
 
   useEffect(() => {
-    requestData();
-  }, []);
+    if (data) setRows(generateRows(data.data));
+  }, [data]);
 
   const redirect = (id) => {
     router.push(`/user/${id}`);
@@ -37,12 +32,21 @@ function StudentsComponent() {
   };
 
   return (
-    <div>
+    <Paper className="m-6 p-4">
+      <Typography
+        variant="h4"
+        className="m-4 underline decoration-orange-500"
+        align="center"
+      >
+        Students List
+      </Typography>
+
       <Table
         rows={rows}
+        height="70vh"
         columns={generateColumns(user?.rol, redirect, handleEdit, handleDelete)}
       />
-    </div>
+    </Paper>
   );
 }
 

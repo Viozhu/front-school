@@ -1,12 +1,12 @@
 import { useCustomContext } from '@/Context';
 import { Table } from '@/stylesComponents';
+import useAxios from '@/utils/axios';
 import { Typography } from '@mui/material';
 import { GridRowsProp } from '@mui/x-data-grid';
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { generateRows } from '../Students/helpers';
-import { generateColumns } from './helpers';
+import { useEffect, useState } from 'react';
+
+import { generateColumns, generateRows } from './helpers';
 
 function LoginComponent() {
   const { setUser } = useCustomContext();
@@ -18,18 +18,11 @@ function LoginComponent() {
     router.push('/');
   };
 
-  const requestData = async () => {
-    try {
-      const { data } = await axios('http://localhost:4001/user/getUsers');
-      setRows(generateRows(data.data));
-    } catch (error) {
-      setRows([]);
-    }
-  };
+  const { data } = useAxios('/user/getUsers');
 
   useEffect(() => {
-    requestData();
-  }, []);
+    if (data) setRows(generateRows(data.data));
+  }, [data]);
 
   return (
     <div>
