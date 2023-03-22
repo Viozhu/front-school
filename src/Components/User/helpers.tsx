@@ -1,4 +1,4 @@
-import { IRoom } from '@/interface';
+import { FAMILYRELATION, IRoom } from '@/interface';
 import { IconButton } from '@mui/material';
 import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -48,6 +48,7 @@ export const generateColumns = (redirect): GridColDef[] => {
   return columns;
 };
 
-export const fistLetterMayus = (word: string | any) => {
-  return word.charAt(0).toUpperCase() + word.slice(1).toLocaleLowerCase();
+export const fistLetterMayus = (word: string | FAMILYRELATION) => {
+  const str = word as string;
+  return str.charAt(0).toUpperCase() + str.slice(1).toLocaleLowerCase();
 };

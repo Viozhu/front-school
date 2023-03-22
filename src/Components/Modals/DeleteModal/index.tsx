@@ -1,10 +1,11 @@
+import { IStudent } from '@/interface';
 import MyModal from '@/stylesComponents/Modal';
 import React from 'react';
 
 interface DeleteModalProps {
   open: boolean;
   onClose: () => void;
-  user: any;
+  user: IStudent;
 }
 
 function DeleteModal({ open, onClose, user }: DeleteModalProps) {

@@ -1,6 +1,10 @@
 import MyModal from '@/stylesComponents/Modal';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { TextField, Button, Divider } from '@mui/material';
+import { TextField, Button, Divider, Avatar } from '@mui/material';
+
+import { useState } from 'react';
+import UppyUpload from '@/utils/uppy';
+import { IStudent } from '@/interface';
 
 interface FormData {
   firstName: string;
@@ -10,7 +14,7 @@ interface FormData {
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
-  user: any;
+  user: IStudent;
 }
 
 function EditModal({ open, onClose, user }: EditModalProps) {
@@ -19,18 +23,21 @@ function EditModal({ open, onClose, user }: EditModalProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   console.log(user);
-
   const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
 
   return (
     <MyModal open={open} onClose={onClose} title="Edit user">
       <div className="m-3 ">
+        {' '}
+        {previewUrl && <Avatar alt="preview" src={previewUrl} />}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-3"
         >
+          <UppyUpload setImgUrl={setPreviewUrl} />
           <TextField
             {...register('firstName', { required: true })}
             label="First Name"

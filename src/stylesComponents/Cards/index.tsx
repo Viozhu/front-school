@@ -4,12 +4,20 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import { useRouter } from 'next/router';
+import { DAY, IRoom } from '@/interface';
 
-export default function CardComponent({ data }: any): JSX.Element {
+interface CardComponentProps {
+  data: IRoom;
+}
+
+export default function CardComponent({
+  data,
+}: CardComponentProps): JSX.Element {
   const router = useRouter();
 
-  const fistLetterMayus = (word: string) => {
-    return word.charAt(0).toUpperCase() + word.slice(1).toLocaleLowerCase();
+  const fistLetterMayus = (word: string | DAY) => {
+    const day = word as string;
+    return day.charAt(0).toUpperCase() + day.slice(1).toLocaleLowerCase();
   };
 
   return (

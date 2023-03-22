@@ -17,6 +17,7 @@ export const generateRows = (students: IStudent[]): GridRowsProp => {
         gender: student.gender,
         email: student.email,
         rol: student.rol,
+        image: student.image,
         rooms: student.rooms.length,
         familyMember: student.familyMember.length,
       };
