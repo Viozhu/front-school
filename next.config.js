@@ -7,6 +7,12 @@ module.exports = {
         port: '',
         pathname: '/avatar/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'xhr-server.herokuapp.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

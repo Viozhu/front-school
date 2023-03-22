@@ -8,6 +8,7 @@
     "consistent-return": "off",
     "no-extra-boolean-cast": "off",
     "react/jsx-props-no-spreading": "off",
+    "no-extraneous-dependencies": "off",
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
