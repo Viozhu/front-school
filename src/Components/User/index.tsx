@@ -192,7 +192,7 @@ function UserComponent({ id }: UserProps): JSX.Element {
         </div>
       </div>
 
-      <EditModal open onClose={() => {}} user={user} />
+      <EditModal open={false} onClose={() => {}} user={user} />
     </div>
   );
 }
