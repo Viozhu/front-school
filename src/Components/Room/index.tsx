@@ -10,11 +10,15 @@ import {
   ListItemText,
   Paper,
   Typography,
+  Button,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import EditModal from '../Modals/EditModal';
 import { generateColumns } from './helpers';
-import DeleteModal from '../Modals/DeleteModal';
+import AddOrEditRoom from '../Modals/AddRoom';
+import DeleteRoom from '../Modals/DeleteRoom';
+import AddStudents from '../Modals/AddStudents';
+import DeleteStudents from '../Modals/DeleteStudents';
 
 type RoomProps = {
   id: string | string[];
@@ -26,8 +30,11 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
   const { user } = useCustomContext();
   const [modals, setModals] = useState({
     edit: false,
-    delete: false,
+    deleteStudents: false,
     user: null,
+    editRoom: false,
+    deleteRoom: false,
+    addStudents: false,
   });
 
   const router = useRouter();
@@ -43,8 +50,8 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
   };
 
   return (
-    <div className="p-12 flex space-x-8 ">
-      <Paper className="w-1/3 p-4">
+    <div className="p-12 flex space-x-8  ">
+      <Paper className="w-1/3 p-4 flex flex-col h-full">
         <Typography variant="h5" align="center">
           Room #{room?.id}
         </Typography>
@@ -77,15 +84,58 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
           </ListItem>
           <ListItem className="text-sm">{room?.content}</ListItem>
         </List>
+        <div className="flex  w-full h-12 items-end justify-center  space-x-12 mb-4">
+          {user?.rol === 'ADMIN' && (
+            <>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setModals({ ...modals, editRoom: true })}
+              >
+                Edit Room
+              </Button>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => setModals({ ...modals, deleteRoom: true })}
+              >
+                Delete Room
+              </Button>
+            </>
+          )}
+        </div>
       </Paper>
       <Paper className="w-2/3 p-4">
-        <Typography
-          variant="h5"
-          align="center"
-          className="underline decoration-orange-400"
-        >
-          Students
-        </Typography>
+        <div className="flex w-full justify-between mx-4">
+          <Typography
+            variant="h5"
+            align="center"
+            className="underline decoration-orange-400"
+          >
+            Students
+          </Typography>
+          {user?.rol === 'ADMIN' && (
+            <div className="space-x-5 mr-12">
+              <Button
+                variant="outlined"
+                color="primary"
+                size="small"
+                onClick={() => setModals({ ...modals, addStudents: true })}
+              >
+                Add Students
+              </Button>
+              <Button
+                variant="outlined"
+                color="error"
+                size="small"
+                onClick={() => setModals({ ...modals, deleteStudents: true })}
+              >
+                Delete Students
+              </Button>
+            </div>
+          )}
+        </div>
+
         <Table
           height="60vh"
           rows={rows}
@@ -99,11 +149,33 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
           user={modals.user}
         />
       )}
-      {modals.delete && (
-        <DeleteModal
-          open={modals.delete}
-          onClose={() => setModals({ ...modals, delete: false })}
-          user={modals.user}
+      {modals.deleteStudents && (
+        <DeleteStudents
+          open={modals.deleteStudents}
+          onClose={() => setModals({ ...modals, deleteStudents: false })}
+          room={room}
+        />
+      )}
+      {modals.editRoom && (
+        <AddOrEditRoom
+          open={modals.editRoom}
+          type="update"
+          onClose={() => setModals({ ...modals, editRoom: false })}
+          room={room}
+        />
+      )}
+      {modals.deleteRoom && (
+        <DeleteRoom
+          open={modals.deleteRoom}
+          onClose={() => setModals({ ...modals, deleteRoom: false })}
+          room={room}
+        />
+      )}
+      {modals.addStudents && (
+        <AddStudents
+          open={modals.addStudents}
+          onClose={() => setModals({ ...modals, addStudents: false })}
+          room={room}
         />
       )}
     </div>

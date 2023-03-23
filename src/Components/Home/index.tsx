@@ -30,7 +30,7 @@ export default function HomeComponent(): JSX.Element {
         Here you can see all the rooms registered in the system
       </Typography>
       {user?.rol === 'ADMIN' && (
-        <div className="w-full flex flex-row-reverse pr-24">
+        <div className="w-full flex justify-center mt-4">
           <Button
             variant="contained"
             color="primary"

@@ -1,6 +1,5 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EditIcon from '@mui/icons-material/Edit';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { Avatar, IconButton } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 
@@ -49,24 +48,14 @@ export const generateColumns = (rol, redirect, openModals): GridColDef[] => {
               <AccountBoxIcon />
             </IconButton>
             {rol === 'ADMIN' && (
-              <>
-                <IconButton
-                  color="secondary"
-                  aria-label="upload picture"
-                  component="span"
-                  onClick={() => openModals('edit', params.row)}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  color="error"
-                  aria-label="upload picture"
-                  component="span"
-                  onClick={() => openModals('delete', params.row)}
-                >
-                  <PersonRemoveIcon />
-                </IconButton>
-              </>
+              <IconButton
+                color="secondary"
+                aria-label="upload picture"
+                component="span"
+                onClick={() => openModals('edit', params.row)}
+              >
+                <EditIcon />
+              </IconButton>
             )}
           </div>
         );

@@ -81,6 +81,10 @@ function AddOrEditRoom({ open, onClose, room, type }: AddOrEditRoomProps) {
     setValue('day', event.target.value);
   };
 
+  const fistLetterMayus = (word: string) => {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLocaleLowerCase();
+  };
+
   return (
     <div>
       {alert.open && (
@@ -92,7 +96,11 @@ function AddOrEditRoom({ open, onClose, room, type }: AddOrEditRoomProps) {
         />
       )}
 
-      <MyModal open={open} onClose={onClose} title="Add a new Room">
+      <MyModal
+        open={open}
+        onClose={onClose}
+        title={`${fistLetterMayus(type)} a Room`}
+      >
         <div className="m-3 ">
           <form
             onSubmit={handleSubmit(onSubmit)}
