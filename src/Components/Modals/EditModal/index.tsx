@@ -1,14 +1,17 @@
 import MyModal from '@/stylesComponents/Modal';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { TextField, Button, Divider, Avatar } from '@mui/material';
+import { Button, Divider, TextField } from '@mui/material';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { useState } from 'react';
-import UppyUpload from '@/utils/uppy';
 import { IStudent } from '@/interface';
+import { SnackBar } from '@/stylesComponents';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { api } from '@/utils/axios';
 
 interface FormData {
-  firstName: string;
-  lastName: string;
+  name: string;
+  email: string;
+  age: number;
 }
 
 interface EditModalProps {
@@ -17,56 +20,119 @@ interface EditModalProps {
   user: IStudent;
 }
 
+interface IResponse {
+  id: string;
+  name: string;
+  email: string;
+  age: number;
+}
+
 function EditModal({ open, onClose, user }: EditModalProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
-  const [previewUrl, setPreviewUrl] = useState(null);
+    setValue,
+  } = useForm<FormData>({ mode: 'onBlur' });
+  const [alert, setAlert] = useState({
+    open: false,
+    message: '',
+    type: 'success',
+  });
 
-  console.log(user);
-  const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) return;
+    setValue('name', user.name);
+    setValue('email', user.email);
+    setValue('age', user.age);
+  }, [user]);
+
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    const body: IResponse = {
+      id: user.id.toString(),
+      name: formData.name,
+      email: formData.email,
+      age: Number(formData.age),
+    };
+
+    const data = await api.post('/user/update', body);
+
+    if (data.status === 200) {
+      setAlert({
+        open: true,
+        message: 'User edited successfully',
+        type: 'success',
+      });
+      setTimeout(() => {
+        router.reload();
+      }, 1000);
+    } else {
+      setAlert({
+        open: true,
+        message: 'Error editing user',
+        type: 'error',
+      });
+    }
+  };
 
   return (
-    <MyModal open={open} onClose={onClose} title="Edit user">
-      <div className="m-3 ">
-        {previewUrl && <Avatar alt="preview" src={previewUrl} />}
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-3"
-        >
-          <UppyUpload setImgUrl={setPreviewUrl} />
-          <TextField
-            {...register('firstName', { required: true })}
-            label="First Name"
-            error={!!errors.firstName}
-            helperText={errors.firstName ? 'First Name is required' : ''}
-          />
-          <TextField
-            {...register('lastName', { required: true })}
-            label="Last Name"
-            error={!!errors.lastName}
-            helperText={errors.lastName ? 'Last Name is required' : ''}
-          />
-          <Divider />
-          <div className="flex flex-row-reverse ">
-            <Button variant="outlined" color="error">
-              Close
-            </Button>
-            <Button
-              variant="outlined"
-              color="success"
-              disabled={!!errors.firstName || !!errors.lastName}
-              type="submit"
-              className="mr-4"
+    <div>
+      {alert.open && (
+        <SnackBar
+          open={alert.open}
+          onClose={() => setAlert({ ...alert, open: false })}
+          message={alert.message}
+          type={alert.type}
+        />
+      )}
+      {user && (
+        <MyModal open={open} onClose={onClose} title="Edit user">
+          <div className="m-3 ">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col space-y-3"
             >
-              Submit
-            </Button>
+              <TextField
+                {...register('name', { required: true })}
+                label="Name"
+                error={!!errors.name}
+                helperText={errors.name ? ' Name is required' : ''}
+              />
+              <TextField
+                {...register('email', { required: true })}
+                label="Email"
+                error={!!errors.email}
+                helperText={errors.email ? 'Email is required' : ''}
+              />
+              <TextField
+                {...register('age', { required: true })}
+                label="Age"
+                type="number"
+                error={!!errors.age}
+                helperText={errors.age ? 'Age is required' : ''}
+              />
+              <Divider />
+              <div className="flex flex-row-reverse ">
+                <Button variant="outlined" color="error" onClick={onClose}>
+                  Close
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  disabled={!!errors.name || !!errors.email || !!errors.age}
+                  type="submit"
+                  className="mr-4"
+                >
+                  Submit
+                </Button>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </MyModal>
+        </MyModal>
+      )}
+    </div>
   );
 }
 

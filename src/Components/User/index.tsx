@@ -3,7 +3,8 @@ import useAxios from '@/utils/axios';
 import { useCustomContext } from '@/Context';
 import { IStudent } from '@/interface';
 import { Table } from '@/stylesComponents';
-import { handleDelete, handleEdit } from '@/utils/handleUsers';
+import { useState } from 'react';
+
 import {
   Chip,
   Divider,
@@ -36,10 +37,14 @@ type UserProps = {
 };
 
 function UserComponent({ id }: UserProps): JSX.Element {
-  const { data } = useAxios({ url: `/user/getUser/${id}` });
+  const { data } = useAxios(`/user/getUser/${id}`);
   const { user: userLogged } = useCustomContext();
   const user: IStudent = data?.data;
   const router = useRouter();
+  const [modals, setModals] = useState({
+    edit: false,
+    delete: false,
+  });
 
   const redirect = (idRoom: string) => {
     router.push(`/room/${idRoom}`);
@@ -75,7 +80,7 @@ function UserComponent({ id }: UserProps): JSX.Element {
                     size="small"
                     color="secondary"
                     variant="outlined"
-                    onClick={() => handleEdit(user.id)}
+                    onClick={() => setModals({ ...modals, edit: true })}
                   >
                     Edit
                   </Button>
@@ -83,7 +88,7 @@ function UserComponent({ id }: UserProps): JSX.Element {
                     size="small"
                     color="error"
                     variant="outlined"
-                    onClick={() => handleDelete(user.id)}
+                    onClick={() => setModals({ ...modals, delete: true })}
                   >
                     Delete
                   </Button>
@@ -192,7 +197,13 @@ function UserComponent({ id }: UserProps): JSX.Element {
         </div>
       </div>
 
-      <EditModal open onClose={() => {}} user={user} />
+      {modals.edit && (
+        <EditModal
+          open={modals.edit}
+          onClose={() => setModals({ ...modals, edit: false })}
+          user={user}
+        />
+      )}
     </div>
   );
 }

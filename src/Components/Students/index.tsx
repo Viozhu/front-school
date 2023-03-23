@@ -6,14 +6,20 @@ import { GridRowsProp } from '@mui/x-data-grid';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Table from 'src/stylesComponents/Table';
+import EditModal from '../Modals/EditModal';
 import { generateColumns, generateRows } from './helpers';
 
 function StudentsComponent() {
   const [rows, setRows] = useState<GridRowsProp>([]);
   const { user } = useCustomContext();
   const router = useRouter();
+  const [modals, setModals] = useState({
+    edit: false,
+    delete: false,
+    user: null,
+  });
 
-  const { data } = useAxios({ url: '/user/getUsers' });
+  const { data } = useAxios('/user/getUsers');
 
   useEffect(() => {
     if (data) setRows(generateRows(data.data));
@@ -21,6 +27,10 @@ function StudentsComponent() {
 
   const redirect = (id) => {
     router.push(`/user/${id}`);
+  };
+
+  const openModals = (type: 'edit' | 'delete', userData) => {
+    setModals({ ...modals, [type]: true, user: userData });
   };
 
   return (
@@ -36,8 +46,15 @@ function StudentsComponent() {
       <Table
         rows={rows}
         height="70vh"
-        columns={generateColumns(user?.rol, redirect)}
+        columns={generateColumns(user?.rol, redirect, openModals)}
       />
+      {modals.edit && (
+        <EditModal
+          open={modals.edit}
+          onClose={() => setModals({ ...modals, edit: false })}
+          user={modals.user}
+        />
+      )}
     </Paper>
   );
 }

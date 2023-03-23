@@ -1,5 +1,6 @@
 import { useCustomContext } from '@/Context';
 import { IRoom } from '@/interface';
+import { useState } from 'react';
 import { Table } from '@/stylesComponents';
 import useAxios from '@/utils/axios';
 import {
@@ -11,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
+import EditModal from '../Modals/EditModal';
 import { generateColumns } from './helpers';
 
 type RoomProps = {
@@ -18,9 +20,14 @@ type RoomProps = {
 };
 
 function RoomComponent({ id }: RoomProps): JSX.Element {
-  const { data } = useAxios({ url: `/room/getRoom/${id}` });
+  const { data } = useAxios(`/room/getRoom/${id}`);
   const room: IRoom = data?.data;
   const { user } = useCustomContext();
+  const [modals, setModals] = useState({
+    edit: false,
+    delete: false,
+    user: null,
+  });
 
   const router = useRouter();
 
@@ -29,6 +36,10 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
   };
 
   const rows = !!room ? room?.students : [];
+
+  const openModals = (type: 'edit' | 'delete', userData) => {
+    setModals({ ...modals, [type]: true, user: userData });
+  };
 
   return (
     <div className="p-12 flex space-x-8 ">
@@ -77,9 +88,16 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
         <Table
           height="60vh"
           rows={rows}
-          columns={generateColumns(user?.rol, redirect)}
+          columns={generateColumns(user?.rol, redirect, openModals)}
         />
       </Paper>
+      {modals.edit && (
+        <EditModal
+          open={modals.edit}
+          onClose={() => setModals({ ...modals, edit: false })}
+          user={modals.user}
+        />
+      )}
     </div>
   );
 }

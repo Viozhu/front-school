@@ -1,11 +1,10 @@
-import { Avatar, IconButton } from '@mui/material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { Avatar, IconButton } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { handleDelete, handleEdit } from '@/utils/handleUsers';
 
-export const generateColumns = (rol, redirect): GridColDef[] => {
+export const generateColumns = (rol, redirect, openModals): GridColDef[] => {
   const columns = [
     {
       field: 'image',
@@ -55,7 +54,7 @@ export const generateColumns = (rol, redirect): GridColDef[] => {
                   color="secondary"
                   aria-label="upload picture"
                   component="span"
-                  onClick={() => handleEdit(params.row.id)}
+                  onClick={() => openModals('edit', params.row)}
                 >
                   <EditIcon />
                 </IconButton>
@@ -63,7 +62,7 @@ export const generateColumns = (rol, redirect): GridColDef[] => {
                   color="error"
                   aria-label="upload picture"
                   component="span"
-                  onClick={() => handleDelete(params.row.id)}
+                  onClick={() => openModals('delete', params.row)}
                 >
                   <PersonRemoveIcon />
                 </IconButton>

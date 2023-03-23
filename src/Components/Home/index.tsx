@@ -5,7 +5,7 @@ import useAxios from '@/utils/axios';
 export default function HomeComponent(): JSX.Element {
   const [rooms, setRooms] = useState([]);
 
-  const { data } = useAxios({ url: '/room/getRooms' });
+  const { data } = useAxios('/room/getRooms');
 
   useEffect(() => {
     if (data) setRooms(data.data);
