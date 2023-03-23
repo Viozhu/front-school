@@ -6,7 +6,7 @@ const useAxios = (url) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const endpoint = 'http://localhost:4001';
+  const endpoint = process.env.API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
