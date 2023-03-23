@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   IconButton,
   Menu,
   MenuItem,
@@ -180,6 +181,10 @@ function ResponsiveAppBar(): JSX.Element {
                   open={Boolean(anchorElUser)}
                   onClose={() => handleClose('user')}
                 >
+                  <MenuItem>
+                    <Typography textAlign="center">{user?.name}</Typography>
+                  </MenuItem>
+                  <Divider />
                   {settings.map((setting) => (
                     <MenuItem
                       key={setting.name}

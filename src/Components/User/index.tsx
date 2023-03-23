@@ -75,7 +75,7 @@ function UserComponent({ id }: UserProps): JSX.Element {
               <Typography variant="body1" gutterBottom align="center">
                 {user?.email}
               </Typography>
-              {userLogged?.rol === 'ADMIN' && (
+              {(userLogged?.rol === 'ADMIN' || userLogged?.id === user?.id) && (
                 <Box className="flex justify-center mt-4 space-x-1">
                   <Button
                     size="small"
@@ -85,14 +85,16 @@ function UserComponent({ id }: UserProps): JSX.Element {
                   >
                     Edit
                   </Button>
-                  <Button
-                    size="small"
-                    color="error"
-                    variant="outlined"
-                    onClick={() => setModals({ ...modals, delete: true })}
-                  >
-                    Delete
-                  </Button>
+                  {userLogged?.rol === 'ADMIN' && (
+                    <Button
+                      size="small"
+                      color="error"
+                      variant="outlined"
+                      onClick={() => setModals({ ...modals, delete: true })}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </Box>
               )}
             </CardContent>
@@ -176,14 +178,24 @@ function UserComponent({ id }: UserProps): JSX.Element {
               style={{ minHeight: '96px' }}
             >
               {user && user?.familyMember?.length > 0 ? (
-                user?.familyMember?.map((member) => (
-                  <Chip
-                    icon={<FaceIcon />}
-                    label={`${member.userMember.name} - ${fistLetterMayus(
-                      member.type,
-                    )}`}
-                  />
-                ))
+                user?.familyMember?.map((member) =>
+                  member.userMember ? (
+                    <Chip
+                      icon={<FaceIcon />}
+                      label={`${member.userMember.name} - ${fistLetterMayus(
+                        member.type,
+                      )}`}
+                    />
+                  ) : (
+                    <Typography
+                      variant="body1"
+                      align="center"
+                      className="mt-2 text-gray-400"
+                    >
+                      This user has no family members
+                    </Typography>
+                  ),
+                )
               ) : (
                 <Typography
                   variant="body1"
