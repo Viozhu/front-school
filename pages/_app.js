@@ -1,11 +1,11 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from '../src/stylesComponents';
 import CustomContext from '../src/Context/index';
-import { ITStudent } from '../src/interface';
 import '../styles/global.css';
+import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -23,10 +23,19 @@ function MyApp({ Component, pageProps }) {
 
   const handlerUser = {
     setUser: (user) => {
+      localStorage.setItem('user', JSON.stringify(user));
       setUser(user);
     },
     user,
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      setUser(JSON.parse(user));
+    }
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Head>
