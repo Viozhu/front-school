@@ -57,23 +57,14 @@ function EditModal({ open, onClose, user }: EditModalProps) {
       age: Number(formData.age),
     };
 
-    const data = await api.post('/user/update', body);
-
-    if (data.status === 200) {
-      setAlert({
-        open: true,
-        message: 'User edited successfully',
-        type: 'success',
-      });
+    try {
+      const { data } = await api.post('/user/update', body);
+      setAlert({ open: true, message: data.message, type: 'success' });
       setTimeout(() => {
         router.reload();
       }, 1000);
-    } else {
-      setAlert({
-        open: true,
-        message: 'Error editing user',
-        type: 'error',
-      });
+    } catch (error) {
+      setAlert({ open: true, message: error.message, type: 'error' });
     }
   };
 

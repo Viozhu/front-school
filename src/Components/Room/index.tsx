@@ -14,6 +14,7 @@ import {
 import { useRouter } from 'next/router';
 import EditModal from '../Modals/EditModal';
 import { generateColumns } from './helpers';
+import DeleteModal from '../Modals/DeleteModal';
 
 type RoomProps = {
   id: string | string[];
@@ -95,6 +96,13 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
         <EditModal
           open={modals.edit}
           onClose={() => setModals({ ...modals, edit: false })}
+          user={modals.user}
+        />
+      )}
+      {modals.delete && (
+        <DeleteModal
+          open={modals.delete}
+          onClose={() => setModals({ ...modals, delete: false })}
           user={modals.user}
         />
       )}

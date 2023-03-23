@@ -31,6 +31,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { fistLetterMayus, generateColumns, generateRowsRooms } from './helpers';
 import EditModal from '../Modals/EditModal';
+import DeleteModal from '../Modals/DeleteModal';
 
 type UserProps = {
   id: string | string[];
@@ -201,6 +202,13 @@ function UserComponent({ id }: UserProps): JSX.Element {
         <EditModal
           open={modals.edit}
           onClose={() => setModals({ ...modals, edit: false })}
+          user={user}
+        />
+      )}
+      {modals.delete && (
+        <DeleteModal
+          open={modals.delete}
+          onClose={() => setModals({ ...modals, delete: false })}
           user={user}
         />
       )}

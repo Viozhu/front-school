@@ -6,6 +6,7 @@ import { GridRowsProp } from '@mui/x-data-grid';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Table from 'src/stylesComponents/Table';
+import DeleteModal from '../Modals/DeleteModal';
 import EditModal from '../Modals/EditModal';
 import { generateColumns, generateRows } from './helpers';
 
@@ -52,6 +53,13 @@ function StudentsComponent() {
         <EditModal
           open={modals.edit}
           onClose={() => setModals({ ...modals, edit: false })}
+          user={modals.user}
+        />
+      )}
+      {modals.delete && (
+        <DeleteModal
+          open={modals.delete}
+          onClose={() => setModals({ ...modals, delete: false })}
           user={modals.user}
         />
       )}
