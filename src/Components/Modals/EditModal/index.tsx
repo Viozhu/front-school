@@ -31,7 +31,6 @@ function EditModal({ open, onClose, user }: EditModalProps) {
   return (
     <MyModal open={open} onClose={onClose} title="Edit user">
       <div className="m-3 ">
-        {' '}
         {previewUrl && <Avatar alt="preview" src={previewUrl} />}
         <form
           onSubmit={handleSubmit(onSubmit)}

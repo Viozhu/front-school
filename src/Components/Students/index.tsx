@@ -13,7 +13,7 @@ function StudentsComponent() {
   const { user } = useCustomContext();
   const router = useRouter();
 
-  const { data } = useAxios('/user/getUsers');
+  const { data } = useAxios({ url: '/user/getUsers' });
 
   useEffect(() => {
     if (data) setRows(generateRows(data.data));

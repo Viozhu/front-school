@@ -36,7 +36,7 @@ type UserProps = {
 };
 
 function UserComponent({ id }: UserProps): JSX.Element {
-  const { data } = useAxios(`/user/getUser/${id}`);
+  const { data } = useAxios({ url: `/user/getUser/${id}` });
   const { user: userLogged } = useCustomContext();
   const user: IStudent = data?.data;
   const router = useRouter();

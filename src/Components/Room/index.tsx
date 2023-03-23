@@ -18,7 +18,7 @@ type RoomProps = {
 };
 
 function RoomComponent({ id }: RoomProps): JSX.Element {
-  const { data } = useAxios(`/room/getRoom/${id}`);
+  const { data } = useAxios({ url: `/room/getRoom/${id}` });
   const room: IRoom = data?.data;
   const { user } = useCustomContext();
 

@@ -31,9 +31,7 @@ export const generateColumns = (rol, redirect): GridColDef[] => {
       headerName: 'Picture',
       width: 130,
       flex: 1,
-      renderCell: (params) => (
-        <Avatar alt="Remy Sharp" src={params.row.image} />
-      ),
+      renderCell: (params) => <Avatar alt="N" src={params.row.image} />,
     },
     { field: 'id', headerName: 'ID', width: 70, flex: 1 },
     { field: 'name', headerName: 'Name', width: 130, flex: 1 },
