@@ -2,7 +2,7 @@ import MyModal from '@/stylesComponents/Modal';
 import { Button, Divider, TextField } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { IStudent } from '@/interface';
+import { IStatusAlert, IStudent } from '@/interface';
 import { SnackBar } from '@/stylesComponents';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -34,7 +34,7 @@ function EditModal({ open, onClose, user }: EditModalProps) {
     formState: { errors },
     setValue,
   } = useForm<FormData>({ mode: 'onBlur' });
-  const [alert, setAlert] = useState({
+  const [alert, setAlert] = useState<IStatusAlert>({
     open: false,
     message: '',
     type: 'success',
@@ -47,6 +47,8 @@ function EditModal({ open, onClose, user }: EditModalProps) {
     setValue('name', user.name);
     setValue('email', user.email);
     setValue('age', user.age);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {

@@ -70,3 +70,9 @@ export interface IRoom {
   capacity: number;
   students: IStudent[] | null;
 }
+
+export interface IStatusAlert {
+  open: boolean;
+  message: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+}

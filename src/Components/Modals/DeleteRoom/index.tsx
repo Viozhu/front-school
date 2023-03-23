@@ -1,20 +1,20 @@
+import { IStatusAlert, IRoom } from '@/interface';
 import { SnackBar } from '@/stylesComponents';
 import MyModal from '@/stylesComponents/Modal';
 import { useState } from 'react';
 
-import { IStatusAlert } from '@/interface';
 import { api } from '@/utils/axios';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import * as styles from './styles';
 
-interface DeleteFamilyProps {
+interface DeleteRoomProps {
   open: boolean;
   onClose: () => void;
-  user: any;
+  room: IRoom | any;
 }
 
-function DeleteFamily({ open, onClose, user }: DeleteFamilyProps) {
+function DeleteRoom({ open, onClose, room }: DeleteRoomProps) {
   const [alert, setAlert] = useState<IStatusAlert>({
     open: false,
     message: '',
@@ -24,7 +24,7 @@ function DeleteFamily({ open, onClose, user }: DeleteFamilyProps) {
 
   const handleDelete = async () => {
     try {
-      const { data } = await api.delete(`familymember/delete/${user.id}`);
+      const { data } = await api.delete(`/room/delete/${room.id}`);
       setAlert({ open: true, message: data.message, type: 'success' });
       setTimeout(() => {
         router.reload();
@@ -47,12 +47,9 @@ function DeleteFamily({ open, onClose, user }: DeleteFamilyProps) {
         <div className={styles.CONTAINER}>
           <p className="text-2xl font-bold">Are you sure?</p>
           <p className="text-xl flex ">
-            You want to <p className="text-red-500 mx-2">delete</p> this family
-            member?
+            You want to <p className="text-red-500 mx-2">delete</p> this room?
           </p>
-          <p className="text-xl">
-            {user?.userMember?.name} - {user?.type}
-          </p>
+          <p className="text-xl">{room?.name}</p>
           <p className="text-l text-gray-300">This action cannot be undone.</p>
 
           <div className={styles.BUTTON_CONTAINER}>
@@ -79,4 +76,4 @@ function DeleteFamily({ open, onClose, user }: DeleteFamilyProps) {
   );
 }
 
-export default DeleteFamily;
+export default DeleteRoom;

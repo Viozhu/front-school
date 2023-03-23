@@ -183,13 +183,15 @@ function UserComponent({ id }: UserProps): JSX.Element {
               >
                 Family Members
               </Typography>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={() => setModals({ ...modals, addFamily: true })}
-              >
-                Add Family Member
-              </Button>
+              {(userLogged?.rol === 'ADMIN' || userLogged?.id === user?.id) && (
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => setModals({ ...modals, addFamily: true })}
+                >
+                  Add Family Member
+                </Button>
+              )}
             </div>
             <div
               className="flex items-center justify-center space-x-2 flex-wrap"
@@ -203,7 +205,12 @@ function UserComponent({ id }: UserProps): JSX.Element {
                         key={member.id}
                         icon={<FaceIcon />}
                         id={member.id.toString()}
-                        onDelete={() => chiphandleDelete(member)}
+                        onDelete={
+                          userLogged?.rol === 'ADMIN' ||
+                          userLogged?.id === user?.id
+                            ? () => chiphandleDelete(member)
+                            : null
+                        }
                         label={`${member.userMember.name} - ${fistLetterMayus(
                           member.type,
                         )}`}

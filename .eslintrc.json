@@ -9,6 +9,8 @@
     "no-extra-boolean-cast": "off",
     "react/jsx-props-no-spreading": "off",
     "no-extraneous-dependencies": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "import/no-cycle": "off",
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }

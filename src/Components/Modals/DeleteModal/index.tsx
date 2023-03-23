@@ -1,10 +1,10 @@
-import { IStudent } from '@/interface';
+import { IStatusAlert, IStudent } from '@/interface';
 import { SnackBar } from '@/stylesComponents';
 import MyModal from '@/stylesComponents/Modal';
 import { useState } from 'react';
 
 import { api } from '@/utils/axios';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import * as styles from './styles';
 
@@ -15,7 +15,7 @@ interface DeleteModalProps {
 }
 
 function DeleteModal({ open, onClose, user }: DeleteModalProps) {
-  const [alert, setAlert] = useState({
+  const [alert, setAlert] = useState<IStatusAlert>({
     open: false,
     message: '',
     type: 'success',
@@ -55,15 +55,15 @@ function DeleteModal({ open, onClose, user }: DeleteModalProps) {
           <div className={styles.BUTTON_CONTAINER}>
             <Button
               className={styles.BUTTON_DELETE}
-              variant="contained"
-              color="secondary"
+              variant="outlined"
+              color="error"
               onClick={handleDelete}
             >
               Yes
             </Button>
             <Button
-              variant="contained"
-              color="default"
+              variant="outlined"
+              color="info"
               className={styles.BUTTON_CANCEL}
               onClick={onClose}
             >

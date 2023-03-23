@@ -6,7 +6,7 @@ interface SnackBarProps {
   open: boolean;
   onClose: () => void;
   message: string;
-  type: 'success' | 'error' | 'warning' | 'info' | string;
+  type: 'success' | 'error' | 'warning' | 'info';
 }
 
 export default function SimpleSnackbar({

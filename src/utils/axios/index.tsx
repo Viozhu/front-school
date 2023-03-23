@@ -25,7 +25,7 @@ const useAxios = (url) => {
     };
 
     fetchData();
-  }, [url]);
+  }, [url, endpoint]);
 
   return { data, error, loading };
 };

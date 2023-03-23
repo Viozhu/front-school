@@ -1,4 +1,4 @@
-import { IStudent } from '@/interface';
+import { IStatusAlert, IStudent } from '@/interface';
 import { SnackBar } from '@/stylesComponents';
 import MyModal from '@/stylesComponents/Modal';
 import { useState, useEffect } from 'react';
@@ -30,7 +30,7 @@ interface IFamily {
 }
 
 function AddFamilyModal({ open, onClose, user }: AddFamilyModalProps) {
-  const [alert, setAlert] = useState({
+  const [alert, setAlert] = useState<IStatusAlert>({
     open: false,
     message: '',
     type: 'success',
