@@ -43,6 +43,9 @@ function StudentsComponent() {
       >
         Students List
       </Typography>
+      <Typography variant="body1" align="center">
+        Here you can see all the students registered in the system
+      </Typography>
 
       <Table
         rows={rows}

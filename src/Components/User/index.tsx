@@ -32,6 +32,8 @@ import { useRouter } from 'next/router';
 import { fistLetterMayus, generateColumns, generateRowsRooms } from './helpers';
 import EditModal from '../Modals/EditModal';
 import DeleteModal from '../Modals/DeleteModal';
+import AddFamilyModal from '../Modals/AddFamily';
+import DeleteFamily from '../Modals/DeleteFamily';
 
 type UserProps = {
   id: string | string[];
@@ -42,13 +44,21 @@ function UserComponent({ id }: UserProps): JSX.Element {
   const { user: userLogged } = useCustomContext();
   const user: IStudent = data?.data;
   const router = useRouter();
+  const [familyDelete, setFamilyDelete] = useState(null);
   const [modals, setModals] = useState({
+    addFamily: false,
+    deleteFamily: false,
     edit: false,
     delete: false,
   });
 
   const redirect = (idRoom: string) => {
     router.push(`/room/${idRoom}`);
+  };
+
+  const chiphandleDelete = (chip) => {
+    setModals({ ...modals, deleteFamily: true });
+    setFamilyDelete(chip);
   };
 
   return (
@@ -166,35 +176,39 @@ function UserComponent({ id }: UserProps): JSX.Element {
             />
           </Paper>
           <Paper elevation={3} className="p-3">
-            <Typography
-              variant="h6"
-              align="center"
-              className="underline  decoration-orange-400"
-            >
-              Family Members
-            </Typography>
+            <div className="w-full flex justify-around">
+              <Typography
+                variant="h6"
+                className="underline decoration-orange-400"
+              >
+                Family Members
+              </Typography>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => setModals({ ...modals, addFamily: true })}
+              >
+                Add Family Member
+              </Button>
+            </div>
             <div
-              className="flex items-center justify-center"
+              className="flex items-center justify-center space-x-2 flex-wrap"
               style={{ minHeight: '96px' }}
             >
               {user && user?.familyMember?.length > 0 ? (
-                user?.familyMember?.map((member) =>
-                  member.userMember ? (
-                    <Chip
-                      icon={<FaceIcon />}
-                      label={`${member.userMember.name} - ${fistLetterMayus(
-                        member.type,
-                      )}`}
-                    />
-                  ) : (
-                    <Typography
-                      variant="body1"
-                      align="center"
-                      className="mt-2 text-gray-400"
-                    >
-                      This user has no family members
-                    </Typography>
-                  ),
+                user?.familyMember?.map(
+                  (member) =>
+                    member.userMember && (
+                      <Chip
+                        key={member.id}
+                        icon={<FaceIcon />}
+                        id={member.id.toString()}
+                        onDelete={() => chiphandleDelete(member)}
+                        label={`${member.userMember.name} - ${fistLetterMayus(
+                          member.type,
+                        )}`}
+                      />
+                    ),
                 )
               ) : (
                 <Typography
@@ -204,7 +218,7 @@ function UserComponent({ id }: UserProps): JSX.Element {
                 >
                   This user has no family members
                 </Typography>
-              )}{' '}
+              )}
             </div>
           </Paper>
         </div>
@@ -222,6 +236,20 @@ function UserComponent({ id }: UserProps): JSX.Element {
           open={modals.delete}
           onClose={() => setModals({ ...modals, delete: false })}
           user={user}
+        />
+      )}
+      {modals.addFamily && (
+        <AddFamilyModal
+          open={modals.addFamily}
+          onClose={() => setModals({ ...modals, addFamily: false })}
+          user={user}
+        />
+      )}
+      {modals.deleteFamily && (
+        <DeleteFamily
+          open={modals.deleteFamily}
+          onClose={() => setModals({ ...modals, deleteFamily: false })}
+          user={familyDelete}
         />
       )}
     </div>

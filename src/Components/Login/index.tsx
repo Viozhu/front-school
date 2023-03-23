@@ -1,7 +1,7 @@
 import { useCustomContext } from '@/Context';
 import { Table } from '@/stylesComponents';
 import useAxios from '@/utils/axios';
-import { Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { GridRowsProp } from '@mui/x-data-grid';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -25,19 +25,20 @@ function LoginComponent() {
   }, [data]);
 
   return (
-    <div>
-      <Typography variant="h4" color="primary" className="m-4" align="center">
+    <Paper className="m-6 p-4">
+      <Typography
+        variant="h4"
+        className="m-4 underline decoration-orange-500"
+        align="center"
+      >
         Login with your user
       </Typography>
+      <Typography variant="body1" align="center">
+        If you dont have an account, please contact with the administrator
+      </Typography>
 
-      <div className="   w-[80%] flex mx-auto">
-        <Table
-          height="80vh"
-          rows={rows}
-          columns={generateColumns(handleLogin)}
-        />
-      </div>
-    </div>
+      <Table height="70vh" rows={rows} columns={generateColumns(handleLogin)} />
+    </Paper>
   );
 }
 
