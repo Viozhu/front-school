@@ -61,7 +61,7 @@ npm install -g pnpm
 1. Clone the repo
 
 ```sh
-https://github.com/Viozhu/MovieNight.git
+https://github.com/Viozhu/front-school.git
 ```
 
 2. Install NPM packages
@@ -73,7 +73,7 @@ pnpm install
 3. Enter your API in `.env.local`
 
 ```ENV
-NEXT_PUBLIC_API_URL=http://localhost:4001
+NEXT_PUBLIC_API_URL=https://backendschool.onrender.com
 ```
 ## Contributing
 
