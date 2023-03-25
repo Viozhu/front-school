@@ -64,6 +64,7 @@ export default function CardComponent({
             variant="body2"
             color="text.secondary"
             className="overflow-auto"
+            sx={{ maxHeight: '100px' }}
           >
             {data.content}
           </Typography>
