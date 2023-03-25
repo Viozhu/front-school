@@ -36,7 +36,7 @@ export default function CardComponent({
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }} className="my-4">
+    <Card sx={{ maxWidth: 345, maxHeight: 450 }} className="my-4">
       <CardActionArea>
         <CardMedia
           component="img"
@@ -60,7 +60,11 @@ export default function CardComponent({
             {fistLetterMayus(data.day)} - {data.time} hs - Total students:{' '}
             {data.students.length}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            className="overflow-auto"
+          >
             {data.content}
           </Typography>
         </CardContent>

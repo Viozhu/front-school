@@ -13,7 +13,6 @@ export default function HomeComponent(): JSX.Element {
   });
   const { user } = useCustomContext();
   const { data } = useAxios('/room/getRooms');
-
   useEffect(() => {
     if (data) setRooms(data.data);
   }, [data]);
