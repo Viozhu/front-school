@@ -1,14 +1,14 @@
 /* eslint-disable */
 export enum ROL {
-  STUDENT,
-  TEACHER,
-  ADMIN,
+  STUDENT = 'STUDENT',
+  TEACHER = 'TEACHER',
+  ADMIN = 'ADMIN',
 }
 
 export enum GENDER {
-  MALE,
-  FEMALE,
-  OTHER,
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHER = 'OTHER',
 }
 
 export enum DAY {

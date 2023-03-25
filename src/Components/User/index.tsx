@@ -63,7 +63,7 @@ function UserComponent({ id }: UserProps): JSX.Element {
 
   return (
     <div className="flex justify-center items-center h-full">
-      <div className="flex my-2">
+      <div className="flex flex-col lg:flex-row my-2">
         <div>
           <Card className="m-2">
             <CardContent>
@@ -142,7 +142,7 @@ function UserComponent({ id }: UserProps): JSX.Element {
             </CardContent>
           </Card>
         </div>
-        <div className="m-2 w-[50vw] space-y-2">
+        <div className="m-2 lg:w-[50vw] space-y-2">
           <Paper elevation={3} className="p-3 space-y-3">
             <Typography
               variant="h6"

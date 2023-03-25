@@ -1,16 +1,18 @@
 import { useCustomContext } from '@/Context';
 import { Table } from '@/stylesComponents';
 import useAxios from '@/utils/axios';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography, Button } from '@mui/material';
 import { GridRowsProp } from '@mui/x-data-grid';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import CreateUser from '../Modals/CreateUser';
 
 import { generateColumns, generateRows } from './helpers';
 
 function LoginComponent() {
   const { setUser } = useCustomContext();
   const [rows, setRows] = useState<GridRowsProp>([]);
+  const [createModal, setCreateModal] = useState(false);
   const router = useRouter();
 
   const handleLogin = (user) => {
@@ -36,8 +38,19 @@ function LoginComponent() {
       <Typography variant="body1" align="center">
         If you dont have an account, please contact with the administrator
       </Typography>
-
+      <div className="flex flex-row-reverse pr-4">
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => setCreateModal(true)}
+        >
+          Create a new account
+        </Button>
+      </div>
       <Table height="70vh" rows={rows} columns={generateColumns(handleLogin)} />
+      {createModal && (
+        <CreateUser open={createModal} onClose={() => setCreateModal(false)} />
+      )}
     </Paper>
   );
 }

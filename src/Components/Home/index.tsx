@@ -1,12 +1,13 @@
 import { useCustomContext } from '@/Context';
 import CardComponent from '@/stylesComponents/Cards';
 import useAxios from '@/utils/axios';
-import { Button, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import AddOrEditRoom from '../Modals/AddRoom';
 
 export default function HomeComponent(): JSX.Element {
   const [rooms, setRooms] = useState([]);
+  const [search, setSearch] = useState('');
   const [modals, setModals] = useState({
     addOrEditRoom: false,
   });
@@ -29,8 +30,9 @@ export default function HomeComponent(): JSX.Element {
       <Typography variant="body1" align="center" className="text-white ">
         Here you can see all the rooms registered in the system
       </Typography>
-      {user?.rol === 'ADMIN' && (
-        <div className="w-full flex justify-center mt-4">
+
+      <div className="w-full flex justify-center lg:justify-start pr-0 lg:pr-24 flex-row-reverse mt-4">
+        {user?.rol === 'ADMIN' && (
           <Button
             variant="contained"
             color="primary"
@@ -38,13 +40,23 @@ export default function HomeComponent(): JSX.Element {
             onClick={() => setModals({ ...modals, addOrEditRoom: true })}
           >
             Add Room
-          </Button>{' '}
-        </div>
-      )}
-      <div className="flex space-x-4 justify-center flex-wrap items-center p-8 ">
-        {rooms.map((item) => (
-          <CardComponent key={item.id} data={item} />
-        ))}
+          </Button>
+        )}
+        <TextField
+          id="outlined-basic"
+          label="Search Room"
+          variant="outlined"
+          onChange={(e) => setSearch(e.target.value)}
+          className="bg-white rounded mr-3"
+        />
+      </div>
+
+      <div className="flex lg:space-x-4 justify-center flex-wrap items-center p-8 ">
+        {rooms
+          .filter((x) => x.name.toLowerCase().includes(search.toLowerCase()))
+          .map((item) => (
+            <CardComponent key={item.id} data={item} />
+          ))}
       </div>
       {modals.addOrEditRoom && (
         <AddOrEditRoom

@@ -50,8 +50,8 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
   };
 
   return (
-    <div className="p-12 flex space-x-8  ">
-      <Paper className="w-1/3 p-4 flex flex-col h-full">
+    <div className=" p-2 lg:p-12 flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8  ">
+      <Paper className="w-full mt-4 lg:mt-0 lg:w-1/3 p-4 flex flex-col h-full">
         <Typography variant="h5" align="center">
           Room #{room?.id}
         </Typography>
@@ -105,8 +105,8 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
           )}
         </div>
       </Paper>
-      <Paper className="w-2/3 p-4">
-        <div className="flex w-full justify-between mx-4">
+      <Paper className="w-full lg:w-2/3 p-4">
+        <div className="flex w-full flex-col lg:flex-row justify-center lg:justify-between lg:mx-4 mx-0">
           <Typography
             variant="h5"
             align="center"
@@ -115,7 +115,7 @@ function RoomComponent({ id }: RoomProps): JSX.Element {
             Students
           </Typography>
           {user?.rol === 'ADMIN' && (
-            <div className="space-x-5 mr-12">
+            <div className=" flex justify-center mt-2 lg:mt-0 space-x-5 lg:mr-12">
               <Button
                 variant="outlined"
                 color="primary"
