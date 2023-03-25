@@ -64,13 +64,13 @@ npm install -g pnpm
 https://github.com/Viozhu/MovieNight.git
 ```
 
-3. Install NPM packages
+2. Install NPM packages
 
 ```sh
 pnpm install
 ```
 
-4. Enter your API in `.env.local`
+3. Enter your API in `.env.local`
 
 ```ENV
 NEXT_PUBLIC_API_URL=http://localhost:4001
