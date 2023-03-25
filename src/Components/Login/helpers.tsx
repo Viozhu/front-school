@@ -1,6 +1,6 @@
 import { IStudent } from '@/interface';
 import LoginIcon from '@mui/icons-material/Login';
-import { IconButton, Tooltip } from '@mui/material';
+import { Avatar, IconButton, Tooltip } from '@mui/material';
 import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
 
 export const generateRows = (students: IStudent[]): GridRowsProp => {
@@ -11,6 +11,7 @@ export const generateRows = (students: IStudent[]): GridRowsProp => {
       age: student.age,
       gender: student.gender,
       email: student.email,
+      image: student.image,
       rol: student.rol,
       rooms: student.rooms.length,
       familyMember: student.familyMember.length,
@@ -21,6 +22,15 @@ export const generateRows = (students: IStudent[]): GridRowsProp => {
 export const generateColumns = (login): GridColDef[] => {
   const columns = [
     { field: 'id', headerName: 'ID', width: 70, flex: 1 },
+    {
+      field: 'image',
+      headerName: 'Picture',
+      width: 130,
+      flex: 1,
+      renderCell: (params) => (
+        <Avatar alt="Remy Sharp" src={params.row.image} />
+      ),
+    },
     { field: 'name', headerName: 'Name', width: 130, flex: 1 },
     { field: 'email', headerName: 'Email', width: 130, flex: 1 },
 
