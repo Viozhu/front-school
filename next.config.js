@@ -13,6 +13,12 @@ module.exports = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'tusd.tusdemo.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
