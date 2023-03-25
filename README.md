@@ -61,7 +61,7 @@ npm install -g pnpm
 1. Clone the repo
 
 ```sh
-https://github.com/Viozhu/MovieNight.git
+https://github.com/Viozhu/front-school.git
 ```
 
 2. Install NPM packages
