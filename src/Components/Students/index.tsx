@@ -1,17 +1,19 @@
 import { useCustomContext } from '@/Context';
 import useAxios from '@/utils/axios';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography, Button } from '@mui/material';
 import { GridRowsProp } from '@mui/x-data-grid';
 
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Table from 'src/stylesComponents/Table';
+import CreateUser from '../Modals/CreateUser';
 import DeleteModal from '../Modals/DeleteModal';
 import EditModal from '../Modals/EditModal';
 import { generateColumns, generateRows } from './helpers';
 
 function StudentsComponent() {
   const [rows, setRows] = useState<GridRowsProp>([]);
+  const [createModal, setCreateModal] = useState(false);
   const { user } = useCustomContext();
   const router = useRouter();
   const [modals, setModals] = useState({
@@ -46,7 +48,17 @@ function StudentsComponent() {
       <Typography variant="body1" align="center">
         Here you can see all the students registered in the system
       </Typography>
-
+      {user?.rol === 'ADMIN' && (
+        <div className="flex flex-row-reverse pr-4">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setCreateModal(true)}
+          >
+            Create a new student
+          </Button>
+        </div>
+      )}
       <Table
         rows={rows}
         height="70vh"
@@ -65,6 +77,9 @@ function StudentsComponent() {
           onClose={() => setModals({ ...modals, delete: false })}
           user={modals.user}
         />
+      )}
+      {createModal && (
+        <CreateUser open={createModal} onClose={() => setCreateModal(false)} />
       )}
     </Paper>
   );

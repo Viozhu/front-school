@@ -8,6 +8,8 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  Avatar,
+  Typography,
 } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -15,6 +17,7 @@ import { GENDER, IStatusAlert, ROL } from '@/interface';
 import { SnackBar } from '@/stylesComponents';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import UppyUpload from '@/utils/uppy';
 import { api } from '@/utils/axios';
 import { selectOptionsGender, selectOptionsRol } from './helpers';
 
@@ -40,6 +43,7 @@ function CreateUser({ open, onClose }: CreateUserProps) {
     watch,
     formState: { errors },
   } = useForm<IUser>({ mode: 'onBlur' });
+  const [file, setFile] = useState(null);
   const [alert, setAlert] = useState<IStatusAlert>({
     open: false,
     message: '',
@@ -48,14 +52,14 @@ function CreateUser({ open, onClose }: CreateUserProps) {
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<IUser> = async (formData) => {
+  const onSubmit: SubmitHandler<IUser> = async (form) => {
     const body: IUser = {
-      name: formData.name,
-      image: formData.image,
-      email: formData.email,
-      gender: formData.gender,
-      age: Number(formData.age),
-      rol: formData.rol as ROL,
+      name: form.name,
+      image: file,
+      email: form.email,
+      gender: form.gender,
+      age: Number(form.age),
+      rol: form.rol as ROL,
     };
 
     try {
@@ -95,6 +99,21 @@ function CreateUser({ open, onClose }: CreateUserProps) {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col space-y-3"
           >
+            <div className="flex justify-center items-center mb-4 border-2 p-2 border-dashed rounded-md">
+              <Avatar src={file} sizes="large" className="w-20 h-20" />
+              <div className="w-2/3">
+                <Typography variant="body1" className="ml-3">
+                  Name: {watch('name')}
+                </Typography>
+                <Typography variant="body1" className="ml-3">
+                  Email: {watch('email')}
+                </Typography>
+                <Typography variant="body1" className="ml-3">
+                  Age: {watch('age')}
+                </Typography>
+              </div>
+            </div>
+
             <TextField
               {...register('name', { required: true })}
               label="Name"
@@ -108,13 +127,8 @@ function CreateUser({ open, onClose }: CreateUserProps) {
               error={!!errors.email}
               helperText={errors.email ? 'Email is required' : ''}
             />
-            <TextField
-              {...register('image', { required: true })}
-              label="Image"
-              error={!!errors.image}
-              helperText={errors.image ? 'Image is required' : ''}
-            />
 
+            <UppyUpload setImgUrl={setFile} />
             <TextField
               {...register('age', { required: true })}
               label="Age"
@@ -158,7 +172,14 @@ function CreateUser({ open, onClose }: CreateUserProps) {
               <Button
                 variant="outlined"
                 color="success"
-                disabled={!!errors.name || !!errors.email || !!errors.age}
+                disabled={
+                  !!errors.name ||
+                  !!errors.email ||
+                  !!errors.age ||
+                  !!errors.image ||
+                  !!errors.rol ||
+                  !!errors.gender
+                }
                 type="submit"
                 className="mr-4"
               >
