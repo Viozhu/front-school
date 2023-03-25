@@ -33,12 +33,12 @@
 This project was created for the technical challenge of Rather Labs
 
 ## Built With
-<div style="display:flex; justify-content: center;">
+<p align="center"> 
 <img src="https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />  
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /> 
   <img src="https://img.shields.io/badge/Material%20Ui-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
 <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" /> 
-</div>
+</p>
 
 ## Getting Started
 
