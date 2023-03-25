@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { IStatusAlert, IRoom } from '@/interface';
+import { IStatusAlert, IRoom, DAY } from '@/interface';
 import { SnackBar } from '@/stylesComponents';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -21,7 +21,7 @@ import { daysOptions } from './helpers';
 interface FormData {
   name: string;
   content: string;
-  day: string;
+  day: DAY;
   time: string;
   capacity: number;
 }
@@ -29,7 +29,7 @@ interface FormData {
 interface AddOrEditRoomProps {
   open: boolean;
   onClose: () => void;
-  room: IRoom | any;
+  room: IRoom;
   type: 'create' | 'update';
 }
 
@@ -78,7 +78,7 @@ function AddOrEditRoom({ open, onClose, room, type }: AddOrEditRoomProps) {
   };
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
-    setValue('day', event.target.value);
+    setValue('day', event.target.value as DAY);
   };
 
   const fistLetterMayus = (word: string) => {

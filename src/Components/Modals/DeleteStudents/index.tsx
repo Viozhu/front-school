@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 interface DeleteStudentsProps {
   open: boolean;
   onClose: () => void;
-  room: IRoom | any;
+  room: IRoom;
 }
 
 function DeleteStudents({ open, onClose, room }: DeleteStudentsProps) {

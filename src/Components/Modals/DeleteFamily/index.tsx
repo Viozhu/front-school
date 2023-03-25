@@ -11,7 +11,13 @@ import * as styles from './styles';
 interface DeleteFamilyProps {
   open: boolean;
   onClose: () => void;
-  user: any;
+  user: {
+    id: string;
+    type: string;
+    userMember: {
+      name: string;
+    };
+  };
 }
 
 function DeleteFamily({ open, onClose, user }: DeleteFamilyProps) {

@@ -11,7 +11,7 @@ import * as styles from './styles';
 interface DeleteRoomProps {
   open: boolean;
   onClose: () => void;
-  room: IRoom | any;
+  room: IRoom;
 }
 
 function DeleteRoom({ open, onClose, room }: DeleteRoomProps) {

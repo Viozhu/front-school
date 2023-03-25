@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 interface AddStudentsProps {
   open: boolean;
   onClose: () => void;
-  room: IRoom | any;
+  room: IRoom;
 }
 
 function AddStudents({ open, onClose, room }: AddStudentsProps) {
