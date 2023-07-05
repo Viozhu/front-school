@@ -3,7 +3,7 @@
   <h3 align="center">Academy IT</h3>
 
   <p align="center">
-    This project was created for the technical challenge of Rather Labs
+    This project was created for the technical challenge
     <br/>
     <br/>
     <a href="https://front-school.vercel.app/" target="_blank">View Demo</a>
@@ -30,7 +30,7 @@
 
 
 
-This project was created for the technical challenge of Rather Labs
+This project was created for the technical challenge
 
 ## Built With
 <p align="center"> 
